@@ -36,16 +36,16 @@ def show_movie(movie_id):
     return render_template("movie_details.html", movie=movie)
 
 
-@app.route('/user')
+@app.route('/users')
 def all_user():
     """Display the email addresses of each user and link to that user’s profile"""
 
     users = crud.return_user()
 
-    return render_template("users.html", users=users)
+    return render_template("all_users.html", users=users)
 
 
-@app.route('/user/<user_id>')
+@app.route('/users/<user_id>')
 def show_user(user_id):
 
     user = crud.get_user_by_id(user_id)
