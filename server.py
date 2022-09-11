@@ -56,20 +56,22 @@ def show_user(user_id):
 
 @app.route('/users', methods=['POST'])
 def register_user():
-    """Retrieves email and password fields when account is created."""
+    """Creates a new user."""
 
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if crud.get_user_by_email(email) in crud.return_user():
+    user = crud.get_user_by_email(email)
+
+    if user:
         flash('That email is being used already. Try another email.')
-        return redirect('/')
     else:
         user = crud.create_user(email, password)
-        flash('Your account was successfully created. You can now log in.')
+        flash('Your account was successfully created. Please log in.')
         db.session.add(user)
         db.session.commit()
-        return redirect('/')
+
+    return redirect('/')
 
 
 if __name__ == "__main__":
