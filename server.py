@@ -61,6 +61,16 @@ def register_user():
     email = request.form.get('email')
     password = request.form.get('password')
 
+    if crud.get_user_by_email(email) in crud.return_user():
+        flash('That email is being used already. Try another email.')
+        return redirect('/')
+    else:
+        user = crud.create_user(email, password)
+        flash('Your account was successfully created. You can now log in.')
+        db.session.add(user)
+        db.session.commit()
+        return redirect('/')
+
 
 if __name__ == "__main__":
     connect_to_db(app)
