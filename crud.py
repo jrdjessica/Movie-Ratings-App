@@ -58,6 +58,13 @@ def create_rating(user, movie, score):
     return rating
 
 
+def update_rating(rating_id, score):
+    """Update movie rating."""
+
+    rating = Rating.query.get(rating_id)
+    rating.score = new_score
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
