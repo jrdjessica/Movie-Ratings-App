@@ -5,6 +5,24 @@
 {% block body %}
 <h1>{{ movie.title }}</h1>
 
+{% if session.get('user_email') %}
+<h3>Rate this movie</h3>
+<form action="/movies/{{ movie.movie_id }}/ratings">
+    <p>
+        <label for="ratings">Choose a rating:</label>
+        <select name="rating" id="ratings">
+            {% for num in range(6) %}
+            <option value={{ num }}>{{ num }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p>
+        <input type="submit"></input>
+    </p>
+</form>
+{% endif %}
+
+
 <p>
     {{ movie.overview }}
 </p>
