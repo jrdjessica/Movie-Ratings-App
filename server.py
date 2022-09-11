@@ -74,6 +74,24 @@ def register_user():
     return redirect('/')
 
 
+@app.route('/login', methods=['POST'])
+def log_in():
+    """Log in."""
+
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = crud.get_user_by_email(email)
+
+    if user and user.password == password:
+        session['user_email'] = user.email
+        flash('Logged in successfully.')
+    else:
+        flash('Log in unsuccessful. Try again.')
+
+    return redirect('/')
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
