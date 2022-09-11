@@ -61,6 +61,18 @@ def create_rating(movie_id):
     return redirect(f"/movies/{movie_id}")
 
 
+@app.route('/movies/<movie_id>/ratings', methods=['POST'])
+def update_rating(movie_id):
+    """User can update rating."""
+
+    rating_id = request.json["rating_id"]
+    updated_score = request.json["updated_score"]
+    crud.update_rating(rating_id, updated_score)
+    db.session.commit()
+
+    return 'Success'
+
+
 @app.route('/users')
 def all_user():
     """Display the email addresses of each user and link to user profile."""
