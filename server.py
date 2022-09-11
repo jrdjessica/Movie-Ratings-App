@@ -38,7 +38,7 @@ def show_movie(movie_id):
 
 @app.route('/users')
 def all_user():
-    """Display the email addresses of each user and link to that user’s profile"""
+    """Display the email addresses of each user and link to user profile."""
 
     users = crud.return_user()
 
@@ -47,10 +47,19 @@ def all_user():
 
 @app.route('/users/<user_id>')
 def show_user(user_id):
+    """Show info from a particular user."""
 
     user = crud.get_user_by_id(user_id)
 
     return render_template("user_details.html", user=user)
+
+
+@app.route('/users', methods=['POST'])
+def register_user():
+    """Retrieves email and password fields when account is created."""
+
+    email = request.form.get('email')
+    password = request.form.get('password')
 
 
 if __name__ == "__main__":
